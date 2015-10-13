@@ -1,5 +1,9 @@
 import csv, operator, numpy, collections, itertools
 
+def all_combinations(any_list, i):
+    return itertools.chain.from_iterable(
+        itertools.combinations(any_list, i))
+
 def stringstonum(s1, s2):
     j = 0
     for i in range(0, len(s1)):
@@ -48,17 +52,18 @@ finaldict = {key: value for key, value in dictof1.items() if value >= 2.5}
 freqlist1 = sorted(finaldict)
 print freqlist1
 
-listof2 = []
-for i in range(0,len(freqlist1)-1):
-    for j in range(i+1, len(freqlist1)):
-        if (stringstonum(bindict[freqlist1[i]], bindict[freqlist1[j]]) >= 2.5):
-            smlist = []
-            smlist.append(freqlist1[i])
-            smlist.append(freqlist1[j])
-            smlist.append(stringstonum(bindict[freqlist1[i]], bindict[freqlist1[j]]))
-            listof2.append(smlist)
+listof2 = [list(l) for l in itertools.combinations(freqlist1,2)]
+fin2 = []
+for i in range(0, len(listof2)):
+    if (stringstonum(bindict[listof2[i][0]], bindict[listof2[i][1]]) >= 2.5):
+        fin2.append(listof2[i])
 
-print listof2
+print fin2
 
-listof3 = list(itertools.combinations(iter(freqlist1), 3))
-print listof3[2][1]
+listof3 = [list(l) for l in itertools.combinations(freqlist1,3)]
+fin3 = []
+for i in range(0, len(listof3)):
+    if (stringstonum3(bindict[listof3[i][0]], bindict[listof3[i][1]], bindict[listof3[i][2]]) >= 2.5):
+        fin3.append(listof3[i])
+
+print fin3
